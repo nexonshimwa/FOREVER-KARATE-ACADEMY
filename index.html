@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FOREVER KARATE ACADEMY - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #e63946;
+            --primary-dark: #c1121f;
             --secondary-color: #1d3557;
+            --secondary-light: #457b9d;
             --accent-color: #a8dadc;
             --light-color: #f1faee;
             --dark-color: #457b9d;
@@ -17,7 +20,9 @@
             --white: #fff;
             --black: #000;
             --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-fast: all 0.2s ease;
         }
 
         * {
@@ -27,16 +32,23 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.7;
             color: var(--text-color);
             background-color: var(--light-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            line-height: 1.3;
         }
 
         a {
             text-decoration: none;
             color: var(--secondary-color);
-            transition: var(--transition);
+            transition: var(--transition-fast);
         }
 
         a:hover {
@@ -56,21 +68,45 @@
             display: inline-block;
             background: var(--primary-color);
             color: var(--white);
-            padding: 0.8rem 1.8rem;
+            padding: 0.9rem 2rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
         }
 
         .btn:hover {
-            background: var(--secondary-color);
+            background: var(--primary-dark);
             color: var(--white);
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: var(--transition);
+        }
+
+        .btn:hover::after {
+            transform: translateX(100%) skewX(-15deg);
         }
 
         .container {
@@ -81,12 +117,8 @@
         }
 
         section {
-            padding: 5rem 0;
-        }
-
-        h1, h2, h3, h4 {
-            line-height: 1.2;
-            margin-bottom: 1rem;
+            padding: 6rem 0;
+            position: relative;
         }
 
         /* Header Styles */
@@ -97,13 +129,24 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(255, 255, 255, 0.98);
         }
 
         header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
+            transition: var(--transition);
+        }
+
+        header.scrolled .container {
+            padding: 0.8rem 0;
         }
 
         .logo {
@@ -114,12 +157,23 @@
         .logo img {
             width: 50px;
             margin-right: 1rem;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo img {
+            width: 40px;
         }
 
         .logo h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: var(--secondary-color);
             margin-bottom: 0;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo h1 {
+            font-size: 1.4rem;
         }
 
         nav ul {
@@ -127,13 +181,16 @@
         }
 
         nav ul li {
-            margin-left: 2rem;
+            margin-left: 2.5rem;
+            position: relative;
         }
 
         nav ul li a {
             font-weight: 600;
             color: var(--secondary-color);
             position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
         }
 
         nav ul li.active a,
@@ -141,22 +198,20 @@
             color: var(--primary-color);
         }
 
-        nav ul li.active a:after,
-        nav ul li a:after {
+        nav ul li a::after {
             content: '';
             position: absolute;
-            width: 100%;
+            width: 0;
             height: 2px;
             background: var(--primary-color);
             bottom: -5px;
             left: 0;
-            transform: scaleX(0);
             transition: var(--transition);
         }
 
-        nav ul li.active a:after,
-        nav ul li a:hover:after {
-            transform: scaleX(1);
+        nav ul li.active a::after,
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
         .mobile-menu {
@@ -164,6 +219,11 @@
             color: var(--secondary-color);
             cursor: pointer;
             display: none;
+            transition: var(--transition);
+        }
+
+        .mobile-menu:hover {
+            color: var(--primary-color);
         }
 
         /* Hero Section */
@@ -174,63 +234,194 @@
             align-items: center;
             text-align: center;
             color: var(--white);
-            margin-top: 70px;
+            margin-top: 0;
+            padding-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(29, 53, 87, 0.8) 0%, rgba(230, 57, 70, 0.6) 100%);
+            z-index: 1;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 1s 0.3s forwards;
         }
 
         .hero h2 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 700px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 3rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
         }
 
         /* Features Section */
         .features {
             background: var(--white);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--white);
+            clip-path: polygon(0 0, 100% 0, 50% 100%, 0 0);
         }
 
         .features .container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .feature-box {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             border-radius: 10px;
             transition: var(--transition);
             box-shadow: var(--shadow);
+            background: var(--white);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform: translateY(0);
         }
 
         .feature-box:hover {
             transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .feature-box:hover::before {
+            transform: scaleX(1);
+            height: 100%;
         }
 
         .feature-box i {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary-color);
             margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .feature-box:hover i {
+            color: var(--white);
+            transform: rotateY(180deg);
         }
 
         .feature-box h3 {
             font-size: 1.5rem;
             color: var(--secondary-color);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .feature-box:hover h3 {
+            color: var(--white);
+        }
+
+        .feature-box p {
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .feature-box:hover p {
+            color: rgba(255, 255, 255, 0.9);
         }
 
         /* Upcoming Events */
         .upcoming-events {
             background: var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upcoming-events::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/pattern.png') repeat;
+            opacity: 0.05;
+            z-index: 1;
         }
 
         .upcoming-events .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .upcoming-events h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .upcoming-events h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: var(--transition);
+        }
+
+        .upcoming-events h2:hover::after {
+            transform: scaleX(1);
+        }
+
+        .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .event {
@@ -238,22 +429,79 @@
             padding: 2rem;
             border-radius: 10px;
             box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .event::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .event:hover::before {
+            height: 100%;
         }
 
         .event h3 {
             color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .event .date {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .event .date i {
+            margin-right: 0.5rem;
         }
 
         .event p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--text-light);
+        }
+
+        .event .btn {
+            width: auto;
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            font-size: 0.8rem;
         }
 
         /* Footer */
         footer {
             background: var(--secondary-color);
             color: var(--white);
-            padding: 4rem 0 0;
+            padding: 6rem 0 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: var(--secondary-color);
+            clip-path: polygon(0 0, 100% 0, 50% 100%, 0 0);
+            margin-top: -100px;
         }
 
         footer a {
@@ -262,30 +510,49 @@
 
         footer a:hover {
             color: var(--white);
+            text-decoration: underline;
         }
 
-        .footer-section {
-            margin-bottom: 2rem;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-section h3 {
             color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
         }
 
         .footer-section p, 
         .footer-section li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .footer-section i {
-            margin-right: 0.5rem;
+            margin-right: 0.8rem;
+            width: 20px;
+            text-align: center;
         }
 
         .social-icons {
             display: flex;
             gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .social-icons a {
@@ -297,21 +564,80 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             transition: var(--transition);
+            color: var(--white);
         }
 
         .social-icons a:hover {
             background: var(--primary-color);
-            transform: translateY(-3px);
+            transform: translateY(-3px) rotate(5deg);
+            text-decoration: none;
+        }
+
+        .quick-links li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .quick-links li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            transition: var(--transition-fast);
+        }
+
+        .quick-links li:hover::before {
+            transform: translateX(5px);
         }
 
         .copyright {
             text-align: center;
-            padding: 1.5rem 0;
+            padding: 2rem 0;
             background: rgba(0, 0, 0, 0.2);
-            margin-top: 2rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         /* Responsive Styles */
+        @media (max-width: 992px) {
+            section {
+                padding: 5rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .mobile-menu {
                 display: block;
@@ -324,8 +650,9 @@
                 width: 80%;
                 height: calc(100vh - 70px);
                 background: var(--white);
-                box-shadow: var(--shadow);
+                box-shadow: var(--shadow-lg);
                 transition: var(--transition);
+                z-index: 999;
             }
             
             nav.active {
@@ -338,21 +665,21 @@
             }
             
             nav ul li {
-                margin: 1rem 0;
+                margin: 1.5rem 0;
             }
             
             .hero h2 {
                 font-size: 2.5rem;
             }
             
-            section {
-                padding: 3rem 0;
+            .hero p {
+                font-size: 1.1rem;
             }
         }
 
         @media (max-width: 576px) {
             .logo h1 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .hero h2 {
@@ -364,30 +691,38 @@
             }
             
             .btn {
-                padding: 0.6rem 1.5rem;
+                padding: 0.8rem 1.5rem;
+                font-size: 0.8rem;
+            }
+            
+            section {
+                padding: 4rem 0;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="main-header">
         <div class="container">
             <div class="logo">
-                <img src="logo.png" alt="Forever Karate Academy Logo">
+                <img src="images/logo.png" alt="Forever Karate Academy Logo">
                 <h1>FOREVER KARATE ACADEMY</h1>
             </div>
-            <nav>
+            <nav id="main-nav">
                 <ul>
                     <li class="active"><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="ourteam.html">Our Team</a></li>
-                    <li><a href="login.html">Join Team</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="deposit.html">Payments</a></li>
+                    <li><a href="report.html">Report</a></li>
+                    <li><a href="request-match.html">Matches</a></li>
+                    <li><a href="join-team.html">Join Us</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
                     <li><a href="login.html">Login</a></li>
-                    <li><a href="signup.html">Signup</a></li>
                 </ul>
             </nav>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -396,8 +731,8 @@
     <section class="hero">
         <div class="container">
             <h2>Master the Art of Karate</h2>
-            <p>Join Nexon and our expert instructors to learn traditional karate with modern techniques</p>
-            <a href="signup.html" class="btn">Start Your Journey</a>
+            <p>Join Nexon and our expert instructors to learn traditional karate with modern techniques in a supportive community environment</p>
+            <a href="signup.html" class="btn pulse">Start Your Journey Today</a>
         </div>
     </section>
 
@@ -406,17 +741,17 @@
             <div class="feature-box">
                 <i class="fas fa-medal"></i>
                 <h3>Expert Instructors</h3>
-                <p>Learn from certified black belt instructors with years of experience</p>
+                <p>Learn from certified black belt instructors with over 20 years combined experience in martial arts training and competition.</p>
             </div>
             <div class="feature-box">
                 <i class="fas fa-calendar-alt"></i>
                 <h3>Flexible Schedule</h3>
-                <p>Classes available morning, afternoon, and evening to fit your routine</p>
+                <p>Morning, afternoon, and evening classes available 6 days a week to accommodate students of all ages and schedules.</p>
             </div>
             <div class="feature-box">
                 <i class="fas fa-users"></i>
-                <h3>Community</h3>
-                <p>Join a supportive community of karate enthusiasts</p>
+                <h3>Supportive Community</h3>
+                <p>Join a welcoming community of karate enthusiasts who support each other's growth and development.</p>
             </div>
         </div>
     </section>
@@ -424,72 +759,138 @@
     <section class="upcoming-events">
         <div class="container">
             <h2>Upcoming Events</h2>
-            <div class="event">
-                <h3>Regional Tournament</h3>
-                <p>June 15, 2023 | 9:00 AM</p>
-                <a href="request-match.html" class="btn">Register Now</a>
-            </div>
-            <div class="event">
-                <h3>Belt Testing</h3>
-                <p>July 5, 2023 | 4:00 PM</p>
-                <a href="deposit.html" class="btn">Pay Fees</a>
+            <div class="events-grid">
+                <div class="event">
+                    <h3>Regional Tournament</h3>
+                    <div class="date">
+                        <i class="fas fa-calendar-day"></i> June 15, 2023 | 9:00 AM
+                    </div>
+                    <p>Test your skills against competitors from across the region in our annual karate championship.</p>
+                    <a href="request-match.html" class="btn">Register Now</a>
+                </div>
+                <div class="event">
+                    <h3>Belt Testing</h3>
+                    <div class="date">
+                        <i class="fas fa-calendar-day"></i> July 5, 2023 | 4:00 PM
+                    </div>
+                    <p>Demonstrate your skills and advance to the next level in our formal belt examination.</p>
+                    <a href="deposit.html" class="btn">Pay Testing Fees</a>
+                </div>
+                <div class="event">
+                    <h3>Open House</h3>
+                    <div class="date">
+                        <i class="fas fa-calendar-day"></i> August 12, 2023 | 10:00 AM
+                    </div>
+                    <p>Free introductory classes and demonstrations for prospective students of all ages.</p>
+                    <a href="signup.html" class="btn">RSVP Now</a>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <div class="footer-section">
-                <h3>Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> 123 Karate Street, Dojo City</p>
-                <p><i class="fas fa-phone"></i> +123 456 7890</p>
-                <p><i class="fas fa-envelope"></i> info@foreverkarate.com</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                    <li><a href="ourteam.html">Our Team</a></li>
-                    <li><a href="signup.html">Signup</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Karate Street, Dojo City</p>
+                    <p><i class="fas fa-phone"></i> +250 788 123 456</p>
+                    <p><i class="fas fa-envelope"></i> info@foreverkarate.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sat: 6:00 AM - 9:00 PM</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="quick-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Our Academy</a></li>
+                        <li><a href="gallery.html">Photo Gallery</a></li>
+                        <li><a href="team.html">Meet Our Team</a></li>
+                        <li><a href="deposit.html">Make a Payment</a></li>
+                        <li><a href="signup.html">Become a Member</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Recent News</h3>
+                    <p><i class="fas fa-trophy"></i> Our team won 5 gold medals at the National Championships</p>
+                    <p><i class="fas fa-user-graduate"></i> 12 students promoted to black belt last month</p>
+                    <p><i class="fas fa-calendar-check"></i> Summer intensive training program now enrolling</p>
+                    <a href="about.html#news" class="btn" style="padding: 0.6rem 1.2rem; font-size: 0.8rem; margin-top: 1rem;">More News</a>
                 </div>
             </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2023 FOREVER KARATE ACADEMY. All rights reserved.</p>
+            <div class="copyright">
+                <p>&copy; 2023 FOREVER KARATE ACADEMY. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> by Nexon</p>
+            </div>
         </div>
     </footer>
 
     <script>
         // Mobile Menu Toggle
-        document.querySelector('.mobile-menu').addEventListener('click', function() {
-            document.querySelector('nav').classList.toggle('active');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-times');
+            this.querySelector('i').classList.toggle('fa-bars');
         });
 
         // Close mobile menu when clicking on a link
-        document.querySelectorAll('nav ul li a').forEach(link => {
+        document.querySelectorAll('#main-nav a').forEach(link => {
             link.addEventListener('click', () => {
-                document.querySelector('nav').classList.remove('active');
+                mainNav.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
             });
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
         // Active link highlighting
         const currentPage = window.location.pathname.split('/').pop();
-        document.querySelectorAll('nav ul li a').forEach(link => {
+        document.querySelectorAll('#main-nav li a').forEach(link => {
             if (link.getAttribute('href') === currentPage) {
                 link.parentElement.classList.add('active');
             }
         });
+
+        // Animation on scroll
+        const animateOnScroll = function() {
+            const elements = document.querySelectorAll('.feature-box, .event');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize elements for animation
+        document.querySelectorAll('.feature-box, .event').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
     </script>
 </body>
 </html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever Karate - Martial Arts Excellence</title>
+    <style>
+        :root {
+            --primary: #d40000;
+            --secondary: #000000;
+            --accent: #ffcc00;
+            --light: #ffffff;
+            --dark: #222222;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: url('https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--light);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 0;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 500px;
+            background-color: rgba(34, 34, 34, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo p {
+            color: var(--accent);
+            font-style: italic;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            color: var(--light);
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+        
+        .btn {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--light);
+        }
+        
+        .btn-primary:hover {
+            background-color: #b30000;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--accent);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e6b800;
+            transform: translateY(-2px);
+        }
+        
+        .btn-google {
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-google:hover {
+            background-color: #e6e6e6;
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--light);
+            opacity: 0.3;
+        }
+        
+        .divider span {
+            padding: 0 1rem;
+            color: var(--light);
+        }
+        
+        .guest-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .guest-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .guest-link a:hover {
+            text-decoration: underline;
+        }
+        
+        /* About page styles */
+        .about-page {
+            display: none;
+            position: relative;
+            z-index: 1;
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(34, 34, 34, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent);
+        }
+        
+        .about-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .about-header h2 {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .back-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .about-content {
+            line-height: 1.6;
+        }
+        
+        .about-content h3 {
+            color: var(--accent);
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .about-content p {
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Login Container -->
+    <div class="container" id="loginContainer">
+        <div class="logo">
+            <h1>FOREVER KARATE</h1>
+            <p>Master the art, master yourself</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            
+            <button class="btn btn-primary" id="loginBtn">Login</button>
+            
+            <div class="divider">
+                <span>OR</span>
+            </div>
+            
+            <a href="#" class="btn btn-google" id="googleBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+                </svg>
+                Continue with Google
+            </a>
+            
+            <button class="btn btn-secondary" id="createAccountBtn">Create Account</button>
+            
+            <div class="guest-link">
+                <a href="#" id="guestLink">Continue as guest</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- About Page (shown only for guests) -->
+    <div class="about-page" id="aboutPage">
+        <div class="about-header">
+            <h2>About Forever Karate</h2>
+            <a href="#" class="back-btn" id="backBtn">Back to Login</a>
+        </div>
+        
+        <div class="about-content">
+            <h3>Our Mission</h3>
+            <p>At Forever Karate, we are dedicated to preserving the ancient art of karate while adapting it to modern self-defense needs. Our mission is to empower individuals through discipline, physical fitness, and mental fortitude.</p>
+            
+            <h3>Our History</h3>
+            <p>Founded in 1995 by Master Hiroshi Tanaka, Forever Karate has grown from a small dojo to an international organization with over 50 locations worldwide. Master Tanaka's vision was to create a karate school that would stand the test of time - hence the name "Forever Karate".</p>
+            
+            <h3>Our Instructors</h3>
+            <p>All our instructors are black belt holders with at least 10 years of teaching experience. They undergo rigorous training and certification to ensure they can provide the highest quality instruction to students of all ages and skill levels.</p>
+            
+            <h3>Training Programs</h3>
+            <p>We offer programs for all ages and skill levels:</p>
+            <ul>
+                <li>Little Dragons (ages 4-6)</li>
+                <li>Junior Warriors (ages 7-12)</li>
+                <li>Teen Training (ages 13-17)</li>
+                <li>Adult Programs (ages 18+)</li>
+                <li>Senior Self-Defense (ages 55+)</li>
+            </ul>
+            
+            <h3>Contact Us</h3>
+            <p>Email: info@foreverkarate.com<br>
+            Phone: (555) 123-4567<br>
+            Headquarters: 123 Martial Arts Way, Tokyo, Japan</p>
+            
+            <p><em>To access all features of our website, please create an account or log in.</em></p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginContainer = document.getElementById('loginContainer');
+            const aboutPage = document.getElementById('aboutPage');
+            const guestLink = document.getElementById('guestLink');
+            const backBtn = document.getElementById('backBtn');
+            
+            // Guest link click handler
+            guestLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginContainer.style.display = 'none';
+                aboutPage.style.display = 'block';
+            });
+            
+            // Back button click handler
+            backBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                aboutPage.style.display = 'none';
+                loginContainer.style.display = 'block';
+            });
+            
+            // Login button click handler (simplified for demo)
+            document.getElementById('loginBtn').addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if(email && password) {
+                    alert('Login successful! Redirecting to member area...');
+                    // In a real app, you would redirect to the member area
+                } else {
+                    alert('Please enter both email and password');
+                }
+            });
+            
+            // Create account button click handler
+            document.getElementById('createAccountBtn').addEventListener('click', function() {
+                alert('Redirecting to account creation page...');
+                // In a real app, you would redirect to the registration page
+            });
+            
+            // Google login button click handler
+            document.getElementById('googleBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecting to Google authentication...');
+                // In a real app, you would implement Google OAuth
+            });
+        });
+    </script>
+</body>
+</html>
